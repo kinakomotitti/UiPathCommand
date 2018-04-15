@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath", "UiPath\UiPath.csproj", "{4CE18EBE-E1CA-48BB-8564-8C1C1161270C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUiPath", "UiPath\KUiPath.csproj", "{4CE18EBE-E1CA-48BB-8564-8C1C1161270C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,15 +1,40 @@
-﻿using System;
+﻿using KUiPath.Manager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UiPath
+namespace KUiPath
 {
-    class Program
+    /// <summary>
+    /// UiPath Command Entry Point
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        public static int Main(string[] args)
         {
+            Program instance = new Program();
+            var result= instance.MainProrocess(args);
+#if DEBUG 
+            Console.ReadKey();
+#endif
+            return result;
+
+        }
+
+        private int MainProrocess(string[] args)
+        {
+            int errorLevel = 9;
+            //comannd analysis
+
+            //main process execute
+            CommandManager.DispatchCommand();
+
+            //show result
+
+            //return %ErrorLevel%
+            return errorLevel;
         }
     }
 }
