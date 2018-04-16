@@ -46,6 +46,10 @@
     <Compile Include="Commands\VersionCommand.cs" />
     <Compile Include="Manager\CommandManager.cs" />
     <Compile Include="Manager\FlagManager.cs" />
+    <Compile Include="Manager\HttpClientManager.cs" />
+    <Compile Include="Models\BaseCommandModel.cs" />
+    <Compile Include="Models\EmptyCommandModel.cs" />
+    <Compile Include="Models\ICommandModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

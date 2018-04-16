@@ -15,23 +15,25 @@ namespace KUiPath
         public static int Main(string[] args)
         {
             Program instance = new Program();
-            var result= instance.MainProrocess(args);
+            var result = instance.MainProrocess(args);
 #if DEBUG 
             Console.ReadKey();
 #endif
-            return result;
+            return (int)result;
 
         }
 
-        private int MainProrocess(string[] args)
+        private FlagManager.ProcessStatus MainProrocess(string[] args)
         {
-            int errorLevel = 9;
+            FlagManager.ProcessStatus errorLevel = FlagManager.ProcessStatus.Error;
             //comannd analysis
+            errorLevel = CommandManager.OptionAnalistic(args);
 
             //main process execute
-            CommandManager.DispatchCommand();
+            errorLevel = CommandManager.DispatchCommand();
 
             //show result
+            errorLevel = CommandManager.DisplayCommandResult();
 
             //return %ErrorLevel%
             return errorLevel;

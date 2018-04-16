@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KUiPath.Manager;
+using KUiPath.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KUiPath.Commands
 {
-    public interface ICommand
+     interface ICommand
     {
         /// <summary>
         /// Execute supecific Command.
@@ -14,6 +16,8 @@ namespace KUiPath.Commands
         /// </summary>
         /// <param name="args">Command arguments</param>
         /// <returns></returns>
-        int ExecuteCommand(List<string> args);
+        FlagManager.ProcessStatus ExecuteCommand(ICommandModel model);
+
+        ICommandModel CreateCommandModel(Dictionary<string,ICommand> options);
     }
 }

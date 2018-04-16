@@ -4,22 +4,33 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using KUiPath.Manager;
+using KUiPath.Models;
 
 namespace KUiPath.Commands
 {
     class VersionCommand : ICommand
     {
+        public ICommandModel CreateCommandModel(Dictionary<string, ICommand> options)
+        {
+            return new EmptyCommandModel();
+        }
+
         /// <summary>
         /// show uiPathCommand version information.
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public int ExecuteCommand(List<string> args)
+        public FlagManager.ProcessStatus ExecuteCommand(ICommandModel model)
         {
+            var internalModel = model as EmptyCommandModel;
+            if (internalModel == null) return FlagManager.ProcessStatus.Error;
+
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            Console.WriteLine($"KUiPath command {version}");
-            return 0;
+            CommandManager.ResultList.Add(nameof(VersionCommand),$"KUiPath command {version}");
+
+            return FlagManager.ProcessStatus.Success;
         }
-       
+
     }
 }

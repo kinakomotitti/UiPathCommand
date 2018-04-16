@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace KUiPath.Manager
 {
-    public class FlagManager
+    class HttpClientManager
     {
-        public enum ProcessStatus
-        {
-            Success=0,
-            Error=9,
-        }
-
-
+        
     }
 }
