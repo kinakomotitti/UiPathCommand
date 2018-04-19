@@ -7,9 +7,8 @@ using System.Windows.Input;
 
 namespace KUiPath.Models
 {
-     interface ICommandModel
+    public interface ICommandModel
     {
-         ICommandModel CreateComandModel(Dictionary<string, ICommand> optionList);
 
     }
 }

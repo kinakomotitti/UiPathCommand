@@ -10,9 +10,6 @@ namespace KUiPath.Models
      class BaseCommandModel : ICommandModel
     {
 
-        ICommandModel ICommandModel.CreateComandModel(Dictionary<string, ICommand> optionList)
-        {
-            throw new NotImplementedException();
-        }
+ 
     }
 }

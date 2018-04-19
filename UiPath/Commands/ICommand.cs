@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KUiPath.Commands
 {
-     interface ICommand
+     public interface ICommand
     {
         /// <summary>
         /// Execute supecific Command.
@@ -18,6 +18,6 @@ namespace KUiPath.Commands
         /// <returns></returns>
         FlagManager.ProcessStatus ExecuteCommand(ICommandModel model);
 
-        ICommandModel CreateCommandModel(Dictionary<string,ICommand> options);
+        ICommandModel CreateCommandModel();
     }
 }

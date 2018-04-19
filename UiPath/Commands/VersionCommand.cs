@@ -9,9 +9,9 @@ using KUiPath.Models;
 
 namespace KUiPath.Commands
 {
-    class VersionCommand : ICommand
+    public class VersionCommand : ICommand
     {
-        public ICommandModel CreateCommandModel(Dictionary<string, ICommand> options)
+        public ICommandModel CreateCommandModel()
         {
             return new EmptyCommandModel();
         }
