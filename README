@@ -1,11 +1,16 @@
 KUiPath　コマンド
+====
 
-【目的】
+Overview
+
+## Description
+
 UiPath Orhestrator APIを実行すること。
 　Orchestratorの情報をパッと見ることがメインの目的です。
   何かしらの情報を登録するなどの処理は（今は）実装されていません。
 
-【オプション説明】
+
+## Usage
 -v
 KUiPathのバージョンを表示します。
 
@@ -43,3 +48,14 @@ orchestratorへログインするためのテナント情報を指定します
 　・Robots
  
  参考URL）https://www.uipath.com/hubfs/Documentation/OrchestratorAPIGuide_2016.2/UiPathOrchestratorAPIGuide_2016.2.html
+
+
+## Install
+・・・
+## Contribution
+・・・
+## Licence
+・・・
+
+[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+[tcnksm](https://github.com/tcnksm)
