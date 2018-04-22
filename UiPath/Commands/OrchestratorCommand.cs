@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 using KUiPath.Config;
 using KUiPath.Manager;
 using KUiPath.Models;
+using KUiPath.Util;
 
 namespace KUiPath.Commands
 {
-    class OrchestratorCommand : ICommand
+    /// <summary>
+    /// For Command Option
+    /// </summary>
+    public class OrchestratorCommand : ICommand
     {
+        #region public
+
+        /// <summary>
+        /// Initialize Command Option's Model
+        /// </summary>
         public ICommandModel CreateCommandModel()
         {
             var model = new OrchestartorModel();
@@ -23,28 +32,51 @@ namespace KUiPath.Commands
             return model;
         }
 
-
+        /// <summary>
+        /// Execute Orchestrator api.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public FlagManager.ProcessStatus ExecuteCommand(ICommandModel model)
         {
-            return this.ExecuteCommandAsync(model as OrchestartorModel).Result;
+            return this.ExecuteCommandCore(model as OrchestartorModel);
         }
 
-        private async Task<FlagManager.ProcessStatus> ExecuteCommandAsync(OrchestartorModel model)
+        #endregion
+
+        #region private
+
+        private FlagManager.ProcessStatus ExecuteCommandCore(OrchestartorModel model)
         {
-            await this.ExecuteAuthenticate(model);
+            this.ExecuteAuthenticate(model);
+
             foreach (var command in model.Commands)
             {
+                switch (command)
+                {
+                    case "Release":
+                        this.ExecuteGetReleaseDto(model);
+                        break;
+                    case "Settings":
+                        this.ExecuteGetSettingsDto(model);
+                        break;
+                    case "Robots":
+                        this.ExecuteGetRobotsDto(model);
+                        break;
 
-                if (model.Commands.Contains("Release")) await this.ExecuteGetReleaseDto(model);
-
+                    default:
+                        break;
+                }
             }
 
             return FlagManager.ProcessStatus.Success;
         }
 
+        #region Commands
+
         #region Authenticate
 
-        private async Task ExecuteAuthenticate(OrchestartorModel model)
+        private void ExecuteAuthenticate(OrchestartorModel model)
         {
             var contents = new OrcAuthenticationModel()
             {
@@ -53,8 +85,10 @@ namespace KUiPath.Commands
                 usernameOrEmailAddress = model.UserId
             };
             string url = $"https://{model.HostName}/api/account/authenticate";
-            var responce = await HttpClientManager.ExecutePostAsync<OrcAuthenticationModel>(url, contents);
-            HttpClientManager.BearerValue = responce.result;
+            var task = HttpClientManager.ExecutePostAsync<OrcAuthenticationModel>(url, contents);
+            ConsoleUtil.PrintLoadingString<OrcAuthenticationModel>(task);
+
+            HttpClientManager.BearerValue = task.Result.result;
         }
 
         #endregion
@@ -66,15 +100,87 @@ namespace KUiPath.Commands
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private async Task ExecuteGetReleaseDto(OrchestartorModel model)
+        private void ExecuteGetReleaseDto(OrchestartorModel model)
         {
             string url = $"https://{model.HostName}/odata/Releases";
-            var result = await HttpClientManager.ExecuteGetAsync<OrcReleaseDtoModel>(url);
-            foreach (var item in result.value)
+            var task = HttpClientManager.ExecuteGetAsync<OrcReleaseDtoModel>(url);
+            ConsoleUtil.PrintLoadingString<OrcReleaseDtoModel>(task);
+
+            foreach (var item in task.Result.value)
             {
-                CommandManager.ResultList.Add(DateTime.Now.ToString("mmddss.ffff").ToString(), $"{item.Name},{item.Key},{item.ProcessVersion}");
+                CommandManager.ResultList.Add(DateTime.Now.ToString("ddss.ffffff").ToString(), $"{item.Name},{item.Key},{item.ProcessVersion}");
+                System.Threading.Thread.Sleep(100);
             }
+
+            ConsoleUtil.PrintTable<OrcReleaseDtoModel.Value>(task.Result.value.ToList(), new List<string>() { "Name", "Key", "ProcessVersion" });
+            CommandManager.ResultList = new Dictionary<string, string>();
         }
+
+        #endregion
+
+        #region SettingsDto
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        private void ExecuteGetSettingsDto(OrchestartorModel model)
+        {
+            string url = $"https://{model.HostName}/odata/Settings";
+            var task = HttpClientManager.ExecuteGetAsync<OrcSettingsDto>(url);
+            ConsoleUtil.PrintLoadingString<OrcSettingsDto>(task);
+
+            foreach (var item in task.Result.value)
+            {
+                CommandManager.ResultList.Add(DateTime.Now.ToString("ddss.ffffff").ToString(), $"{item.Id},{item.Name},{item.Value}");
+                System.Threading.Thread.Sleep(100);
+            }
+
+            ConsoleUtil.PrintTable<OrcSettingsDto.Setting>(task.Result.value.ToList(), 
+                                                            new List<string>()
+                                                            {
+                                                                nameof(OrcSettingsDto.Setting.Id),
+                                                                nameof(OrcSettingsDto.Setting.Name),
+                                                                nameof(OrcSettingsDto.Setting.Value)
+                                                            });
+            CommandManager.ResultList = new Dictionary<string, string>();
+        }
+
+        #endregion
+
+        #region ExecuteGetRobotsDto
+
+        private void ExecuteGetRobotsDto(OrchestartorModel model)
+        {
+            string url = $"https://{model.HostName}/odata/Robots";
+            var task = HttpClientManager.ExecuteGetAsync<OrcRobotDto>(url);
+            ConsoleUtil.PrintLoadingString<OrcRobotDto>(task);
+
+            foreach (var item in task.Result.value)
+            {
+                CommandManager.ResultList.Add(DateTime.Now.ToString("ddss.ffffff").ToString(),
+                                              $"{item.Id},{item.Name},{item.MachineName},{item.Password},{item.RobotEnvironments},{item.Username}");
+                System.Threading.Thread.Sleep(100);
+            }
+
+
+            ConsoleUtil.PrintTable<OrcRobotDto.Value>(task.Result.value.ToList(),
+                                                            new List<string>()
+                                                            {
+                                                                nameof(OrcRobotDto.Value.Id),
+                                                                nameof(OrcRobotDto.Value.Name),
+                                                                nameof(OrcRobotDto.Value.MachineName),
+                                                                nameof(OrcRobotDto.Value.Password),
+                                                                nameof(OrcRobotDto.Value.RobotEnvironments),
+                                                                nameof(OrcRobotDto.Value.Username)
+                                                            });
+            CommandManager.ResultList = new Dictionary<string, string>();
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }

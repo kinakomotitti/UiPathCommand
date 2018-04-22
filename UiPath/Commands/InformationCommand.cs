@@ -21,12 +21,15 @@ namespace KUiPath.Commands
             infoBuilder.AppendLine("usage: KUiPath [-v / --version]");
             infoBuilder.AppendLine($"{new string(' ', 15)}[-i / --info]");
             infoBuilder.AppendLine($"{new string(' ', 15)}[-? / --help]");
-            infoBuilder.AppendLine($"{new string(' ', 15)}[-f / --file = fileName]");
-            infoBuilder.AppendLine($"{new string(' ', 15)}[-hostname / --host = host name]");
-            infoBuilder.AppendLine($"{new string(' ', 15)}[-U / --username = user name]");
-            infoBuilder.AppendLine($"{new string(' ', 15)}[-W / --password = password]");
-            infoBuilder.AppendLine($"{new string(' ', 15)}[-T / --tenantname = tenantn ame]");
-            infoBuilder.AppendLine($"{new string(' ', 15)}[-C / --command = command name]");
+            infoBuilder.AppendLine($"{new string(' ', 15)}[-f fileName]");
+            infoBuilder.AppendLine($"{new string(' ', 15)}[-H host name]");
+            infoBuilder.AppendLine($"{new string(' ', 15)}[-U user name]");
+            infoBuilder.AppendLine($"{new string(' ', 15)}[-W password]");
+            infoBuilder.AppendLine($"{new string(' ', 15)}[-T tenantn ame]");
+            infoBuilder.AppendLine($"{new string(' ', 15)}[-C orchestrator API Name]");
+            infoBuilder.AppendLine("");
+            infoBuilder.AppendLine("Support \"Orchestrator API\" is Authenticate");
+            infoBuilder.AppendLine($"{new string(' ', 30)}ReleaseDto");
 
             CommandManager.ResultList.Add(nameof(InformationCommand), infoBuilder.ToString());
             return FlagManager.ProcessStatus.Success;

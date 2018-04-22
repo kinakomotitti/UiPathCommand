@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\OrchestratorCommandTest.cs" />
     <Compile Include="Manager\HttpClientManagerTest.cs" />
     <Compile Include="ProgramTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

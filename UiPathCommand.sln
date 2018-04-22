@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUiPath", "UiPath\KUiPath.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUiPathTest", "KUiPathTest\KUiPathTest.csproj", "{A944BCDC-D398-4EB9-B5D7-6F56F76C5D2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labo", "Labo\Labo.csproj", "{9CEF9343-24C2-4C38-A0C5-DCF7C246279D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A944BCDC-D398-4EB9-B5D7-6F56F76C5D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A944BCDC-D398-4EB9-B5D7-6F56F76C5D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A944BCDC-D398-4EB9-B5D7-6F56F76C5D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CEF9343-24C2-4C38-A0C5-DCF7C246279D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CEF9343-24C2-4C38-A0C5-DCF7C246279D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CEF9343-24C2-4C38-A0C5-DCF7C246279D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CEF9343-24C2-4C38-A0C5-DCF7C246279D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

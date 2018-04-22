@@ -143,6 +143,9 @@ namespace KUiPath.Manager
                             OrchestratorConfig.HostName = args[next];
                         }
                         break;
+                    case "H":
+                        OrchestratorConfig.HostName = args[next];
+                        break;
                     case "f":
                         break;
                     case "U":

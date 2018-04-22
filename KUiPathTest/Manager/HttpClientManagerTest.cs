@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using KUiPath.Commands;
+using KUiPath.Config;
 using KUiPath.Manager;
 using KUiPath.Models;
+using KUiPath.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace KUiPathTest.Manager
@@ -21,6 +24,7 @@ namespace KUiPathTest.Manager
             };
             var result = HttpClientManager.ExecutePostAsync<SampleObject>("https://academy2016.uipath.com/api/account/authenticate",contents).Result;
         }
+
 
         public class SampleObject
         {
