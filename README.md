@@ -1,8 +1,6 @@
 KUiPath　コマンド
 ====
 
-Overview
-
 ## Description
 
 UiPath Orhestrator APIを実行すること。
