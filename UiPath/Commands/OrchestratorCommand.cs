@@ -23,11 +23,24 @@ namespace KUiPath.Commands
         public ICommandModel CreateCommandModel()
         {
             var model = new OrchestartorModel();
-            //TODO 各項目のチェック処理があれば追加で実装する（デフォルト値の設定処理も含めて）
-            model.HostName = OrchestratorConfig.HostName;
-            model.Password = OrchestratorConfig.Password;
-            model.TenantName = OrchestratorConfig.TenantName;
-            model.UserId = OrchestratorConfig.UserId;
+            System.Configuration.AppSettingsReader reader = new System.Configuration.AppSettingsReader();
+
+            model.HostName = string.IsNullOrEmpty(OrchestratorConfig.HostName) ?
+                                reader.GetValue(nameof(OrchestratorConfig.HostName), typeof(string)).ToString() :
+                                OrchestratorConfig.HostName;
+
+            model.Password = string.IsNullOrEmpty(OrchestratorConfig.Password) ?
+                                reader.GetValue(nameof(OrchestratorConfig.Password), typeof(string)).ToString() :
+                                OrchestratorConfig.Password;
+
+            model.TenantName = string.IsNullOrEmpty(OrchestratorConfig.TenantName) ?
+                                reader.GetValue(nameof(OrchestratorConfig.TenantName), typeof(string)).ToString() :
+                                OrchestratorConfig.TenantName;
+
+            model.UserId = string.IsNullOrEmpty(OrchestratorConfig.UserId) ?
+                                reader.GetValue(nameof(OrchestratorConfig.UserId), typeof(string)).ToString() :
+                                OrchestratorConfig.HostName;
+
             model.Commands = OrchestratorConfig.Commands;
             return model;
         }
@@ -137,7 +150,7 @@ namespace KUiPath.Commands
                 System.Threading.Thread.Sleep(100);
             }
 
-            ConsoleUtil.PrintTable<OrcSettingsDto.Setting>(task.Result.value.ToList(), 
+            ConsoleUtil.PrintTable<OrcSettingsDto.Setting>(task.Result.value.ToList(),
                                                             new List<string>()
                                                             {
                                                                 nameof(OrcSettingsDto.Setting.Id),
