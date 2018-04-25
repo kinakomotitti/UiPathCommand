@@ -43,5 +43,23 @@ namespace KUiPathTest.Commands
             var model = comand.CreateCommandModel();
             comand.ExecuteCommand(model);
         }
+
+        [TestMethod]
+        public void TestMethod_Jobs()
+        {
+            OrchestratorConfig.Commands.Add("Jobs");
+            OrchestratorCommand comand = new OrchestratorCommand();
+            var model = comand.CreateCommandModel();
+            comand.ExecuteCommand(model);
+        }
+
+        [TestMethod]
+        public void TestMethod_EnvironmentEnvironments()
+        {
+            OrchestratorConfig.Commands.Add("Environments");
+            OrchestratorCommand comand = new OrchestratorCommand();
+            var model = comand.CreateCommandModel();
+            comand.ExecuteCommand(model);
+        }
     }
 }

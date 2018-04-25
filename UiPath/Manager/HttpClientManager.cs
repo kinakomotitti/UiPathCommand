@@ -30,25 +30,27 @@ namespace KUiPath.Manager
         /// </summary>
         static HttpClientManager()
         {
-            HttpClientHandler handler = new HttpClientHandler();
 
             try
             {
                 var reader = new AppSettingsReader();
-                handler.UseProxy = (bool)reader.GetValue("UseProxy", typeof(bool));
-                if (handler.UseProxy)
+                if ((bool)reader.GetValue("UseProxy", typeof(bool)))
                 {
+                    HttpClientHandler handler = new HttpClientHandler();
+                    handler.UseProxy = true;
                     handler.Proxy = new WebProxy(reader.GetValue("ProxyUrl", typeof(string)).ToString());
                     handler.Credentials = new NetworkCredential(
                         reader.GetValue("ProxyAccount", typeof(string)).ToString(),
                         reader.GetValue("ProxyPassword", typeof(string)).ToString());
+                    HttpClientManager.Client = new HttpClient(handler);
                 }
-
+                else
+                {
+                    HttpClientManager.Client = new HttpClient();
+                }
             }
             catch (Exception)
             { }
-
-            HttpClientManager.Client = new HttpClient(handler);
         }
 
         #endregion
@@ -72,8 +74,6 @@ namespace KUiPath.Manager
             catch (JsonException)
             {
                 contents.ResponceContent = responseContents;
-
-
             }
             return contents;
         }

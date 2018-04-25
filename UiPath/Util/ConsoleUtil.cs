@@ -80,6 +80,18 @@ namespace KUiPath.Util
 
         public static void PrintTable<T>(List<T> models, List<string> displayHeaderList) where T : class
         {
+            if (models == null || models.Count == 0 || displayHeaderList == null || displayHeaderList.Count == 0)
+            {
+                Console.WriteLine("対象のデータは存在しません。");
+                return;
+            }
+
+            var table = ConsoleUtil.PrintTableCore<T>(models, displayHeaderList);
+            Console.WriteLine(table);
+        }
+
+        private static string PrintTableCore<T>(List<T> models, List<string> displayHeaderList) where T : class
+        {
             //テーブルソースの作成
             var tableSource = new Dictionary<string, List<string>>();
             for (int i = 0; i < displayHeaderList.Count; i++)
@@ -145,8 +157,7 @@ namespace KUiPath.Util
                 table.Append("|\r\n");
             }
             table.AppendLine(tableBotom);
-
-            Console.WriteLine(table.ToString());
+            return table.ToString();
         }
 
         #endregion

@@ -29,7 +29,11 @@ namespace KUiPath.Commands
             infoBuilder.AppendLine($"{new string(' ', 15)}[-C orchestrator API Name]");
             infoBuilder.AppendLine("");
             infoBuilder.AppendLine("Support \"Orchestrator API\" is Authenticate");
-            infoBuilder.AppendLine($"{new string(' ', 30)}ReleaseDto");
+            infoBuilder.AppendLine($"{new string(' ', 30)}Settings");
+            infoBuilder.AppendLine($"{new string(' ', 30)}Robots");
+            infoBuilder.AppendLine($"{new string(' ', 30)}Environments");
+            infoBuilder.AppendLine($"{new string(' ', 30)}Jobs");
+            infoBuilder.AppendLine($"{new string(' ', 30)}Release");
 
             CommandManager.ResultList.Add(nameof(InformationCommand), infoBuilder.ToString());
             return FlagManager.ProcessStatus.Success;

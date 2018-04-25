@@ -61,7 +61,11 @@ namespace KUiPath.Commands
 
         private FlagManager.ProcessStatus ExecuteCommandCore(OrchestartorModel model)
         {
-            this.ExecuteAuthenticate(model);
+            if (!this.ExecuteAuthenticate(model))
+            {
+                CommandManager.ResultList.Add("authResult","Loginに失敗しました。");
+                return FlagManager.ProcessStatus.Error;
+            }
 
             foreach (var command in model.Commands)
             {
@@ -70,9 +74,19 @@ namespace KUiPath.Commands
                     case "Release":
                         this.ExecuteGetReleaseDto(model);
                         break;
+
+                    case "Jobs":
+                        this.ExecuteGetJobsDto(model);
+                        break;
+
+                    case "Environments":
+                        this.ExecuteGetEnvironmentsDto(model);
+                        break;
+
                     case "Settings":
                         this.ExecuteGetSettingsDto(model);
                         break;
+
                     case "Robots":
                         this.ExecuteGetRobotsDto(model);
                         break;
@@ -89,7 +103,7 @@ namespace KUiPath.Commands
 
         #region Authenticate
 
-        private void ExecuteAuthenticate(OrchestartorModel model)
+        private bool ExecuteAuthenticate(OrchestartorModel model)
         {
             var contents = new OrcAuthenticationModel()
             {
@@ -102,6 +116,7 @@ namespace KUiPath.Commands
             ConsoleUtil.PrintLoadingString<OrcAuthenticationModel>(task);
 
             HttpClientManager.BearerValue = task.Result.result;
+            return task.Result.success;
         }
 
         #endregion
@@ -138,10 +153,10 @@ namespace KUiPath.Commands
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private void ExecuteGetSettingsDto(OrchestartorModel model)
+        private  void ExecuteGetSettingsDto(OrchestartorModel model)
         {
             string url = $"https://{model.HostName}/odata/Settings";
-            var task = HttpClientManager.ExecuteGetAsync<OrcSettingsDto>(url);
+            var task =  HttpClientManager.ExecuteGetAsync<OrcSettingsDto>(url);
             ConsoleUtil.PrintLoadingString<OrcSettingsDto>(task);
 
             foreach (var item in task.Result.value)
@@ -162,7 +177,7 @@ namespace KUiPath.Commands
 
         #endregion
 
-        #region ExecuteGetRobotsDto
+        #region RobotsDto
 
         private void ExecuteGetRobotsDto(OrchestartorModel model)
         {
@@ -187,6 +202,64 @@ namespace KUiPath.Commands
                                                                 nameof(OrcRobotDto.Value.Password),
                                                                 nameof(OrcRobotDto.Value.RobotEnvironments),
                                                                 nameof(OrcRobotDto.Value.Username)
+                                                            });
+            CommandManager.ResultList = new Dictionary<string, string>();
+        }
+
+        #endregion
+
+        #region EnvironmentsDto
+
+        private void ExecuteGetEnvironmentsDto(OrchestartorModel model)
+        {
+            string url = $"https://{model.HostName}/odata/Environments";
+            var task = HttpClientManager.ExecuteGetAsync<OrcEnvironmentsDto>(url);
+            ConsoleUtil.PrintLoadingString<OrcEnvironmentsDto>(task);
+
+            foreach (var item in task.Result.value)
+            {
+                CommandManager.ResultList.Add(DateTime.Now.ToString("ddss.ffffff").ToString(),
+                                              $"{item.Id},{item.Name},{string.Join(",",item.Description)},{item.Robots}");
+                System.Threading.Thread.Sleep(100);
+            }
+
+
+            ConsoleUtil.PrintTable<OrcEnvironmentsDto.Value>(task.Result.value.ToList(),
+                                                            new List<string>()
+                                                            {
+                                                                nameof(OrcEnvironmentsDto.Value.Id),
+                                                                nameof(OrcEnvironmentsDto.Value.Name),
+                                                                nameof(OrcEnvironmentsDto.Value.Description)
+                                                            });
+            CommandManager.ResultList = new Dictionary<string, string>();
+        }
+
+        #endregion
+
+        #region JobsDto
+
+        private void ExecuteGetJobsDto(OrchestartorModel model)
+        {
+            string url = $"https://{model.HostName}/odata/Jobs";
+            var task = HttpClientManager.ExecuteGetAsync<OrcJobsDto>(url);
+            ConsoleUtil.PrintLoadingString<OrcJobsDto>(task);
+
+            foreach (var item in task.Result.value)
+            {
+                CommandManager.ResultList.Add(DateTime.Now.ToString("ddss.ffffff").ToString(),
+                                              $"{item.Id},{item.Key},{item.Source},{item.Info},{item.StartTime}");
+                System.Threading.Thread.Sleep(100);
+            }
+
+
+            ConsoleUtil.PrintTable<OrcJobsDto.Value>(task.Result.value.ToList(),
+                                                            new List<string>()
+                                                            {
+                                                                nameof(OrcJobsDto.Value.Id),
+                                                                nameof(OrcJobsDto.Value.Key),
+                                                                nameof(OrcJobsDto.Value.Source),
+                                                                nameof(OrcJobsDto.Value.Info),
+                                                                nameof(OrcJobsDto.Value.StartTime)
                                                             });
             CommandManager.ResultList = new Dictionary<string, string>();
         }

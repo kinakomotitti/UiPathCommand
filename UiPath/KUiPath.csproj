@@ -62,7 +62,7 @@
     <Compile Include="Models\ICommandModel.cs" />
     <Compile Include="Models\OrcAssetsDto.cs" />
     <Compile Include="Models\OrcAuthenticationModel.cs" />
-    <Compile Include="Models\OrcEncironmentsDto.cs" />
+    <Compile Include="Models\OrcEnvironmentsDto.cs" />
     <Compile Include="Models\OrchestartorModel.cs" />
     <Compile Include="Models\OrcJobsDto.cs" />
     <Compile Include="Models\OrcQueueDefinitionDto.cs" />
