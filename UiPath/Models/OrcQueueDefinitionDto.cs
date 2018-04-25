@@ -6,25 +6,22 @@ using System.Threading.Tasks;
 
 namespace KUiPath.Models
 {
-    public class OrcRobotDto : BaseCommandModel
+    public class OrcQueueDefinitionDto : BaseCommandModel
     {
 
         public string odatacontext { get; set; }
-        public int odatacount { get; set; }
         public Value[] value { get; set; }
-
 
         public class Value
         {
-            public string LicenseKey { get; set; }
-            public string MachineName { get; set; }
             public string Name { get; set; }
-            public string Username { get; set; }
             public string Description { get; set; }
-            public string Type { get; set; }
-            public string Password { get; set; }
-            public string RobotEnvironments { get; set; }
+            public int MaxNumberOfRetries { get; set; }
+            public bool AcceptAutomaticallyRetry { get; set; }
+            public bool EnforceUniqueReference { get; set; }
+            public DateTime CreationTime { get; set; }
             public int Id { get; set; }
         }
+
     }
 }

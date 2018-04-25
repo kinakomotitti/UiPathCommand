@@ -60,8 +60,13 @@
     <Compile Include="Models\BaseCommandModel.cs" />
     <Compile Include="Models\EmptyCommandModel.cs" />
     <Compile Include="Models\ICommandModel.cs" />
+    <Compile Include="Models\OrcAssetsDto.cs" />
     <Compile Include="Models\OrcAuthenticationModel.cs" />
+    <Compile Include="Models\OrcEncironmentsDto.cs" />
     <Compile Include="Models\OrchestartorModel.cs" />
+    <Compile Include="Models\OrcJobsDto.cs" />
+    <Compile Include="Models\OrcQueueDefinitionDto.cs" />
+    <Compile Include="Models\OrcQueueItemsDto.cs" />
     <Compile Include="Models\OrcReleaseDtoModel.cs" />
     <Compile Include="Models\OrcRobotDto.cs" />
     <Compile Include="Models\OrcSettingsDto.cs" />

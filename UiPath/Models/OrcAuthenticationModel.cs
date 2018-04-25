@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KUiPath.Models
 {
-    public class OrcAuthenticationModel
+    public class OrcAuthenticationModel : BaseCommandModel
     {
         #region Request
         public string tenancyName { get; set; }

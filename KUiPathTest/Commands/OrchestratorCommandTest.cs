@@ -18,7 +18,7 @@ namespace KUiPathTest.Commands
         }
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestMethod_Release()
         {
             OrchestratorConfig.Commands.Add("Release");
             OrchestratorCommand comand = new OrchestratorCommand();
@@ -27,7 +27,7 @@ namespace KUiPathTest.Commands
         }
 
         [TestMethod]
-        public void TestMethod3()
+        public void TestMethod_Robots()
         {
             OrchestratorConfig.Commands.Add("Robots");
             OrchestratorCommand comand = new OrchestratorCommand();
@@ -36,7 +36,7 @@ namespace KUiPathTest.Commands
         }
 
         [TestMethod]
-        public void TestMethod4()
+        public void TestMethod_Settings()
         {
             OrchestratorConfig.Commands.Add("Settings");
             OrchestratorCommand comand = new OrchestratorCommand();

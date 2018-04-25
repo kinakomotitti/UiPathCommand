@@ -7,9 +7,9 @@ using System.Windows.Input;
 
 namespace KUiPath.Models
 {
-     class BaseCommandModel : ICommandModel
+     public class BaseCommandModel : ICommandModel
     {
+        public string ResponceContent { get; set; }
 
- 
     }
 }

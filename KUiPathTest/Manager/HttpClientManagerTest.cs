@@ -15,18 +15,18 @@ namespace KUiPathTest.Manager
         [TestMethod]
         public void TestMethod1()
         {
-            //パスワードはかけねぇ・・・
             var contents = new SampleObject()
             {
-                password = "",
-                usernameOrEmailAddress = "",
-                tenancyName = ""
+                password = "dummy",
+                usernameOrEmailAddress = "dummy",
+                tenancyName = "dummy"
             };
-            var result = HttpClientManager.ExecutePostAsync<SampleObject>("https://academy2016.uipath.com/api/account/authenticate",contents).Result;
+            var result = HttpClientManager.ExecutePostAsync<SampleObject>("https://academy2016.uipath.com/api/account/authenticate", contents).Result;
+            Assert.AreEqual("An error has occured",result.ResponceContent);
         }
 
 
-        public class SampleObject
+        public class SampleObject : BaseCommandModel
         {
             public string tenancyName { get; set; }
             public string usernameOrEmailAddress { get; set; }

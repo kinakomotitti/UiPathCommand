@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KUiPath.Models
 {
-    public class OrcSettingsDto
+    public class OrcSettingsDto : BaseCommandModel
     {
 
         public string odatacontext { get; set; }

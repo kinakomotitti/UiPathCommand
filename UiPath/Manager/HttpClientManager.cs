@@ -54,7 +54,7 @@ namespace KUiPath.Manager
         #endregion
 
 
-        public static async Task<T> ExecutePostAsync<T>(string url, T contents)
+        public static async Task<T> ExecutePostAsync<T>(string url, T contents) where T : BaseCommandModel
         {
             //各種設定を行います。
             HttpClientManager.InitializeClient();
@@ -63,7 +63,19 @@ namespace KUiPath.Manager
             var response = await HttpClientManager.Client.PostAsJsonAsync<T>(url, contents);
 
             //レスポンスのContentsをJson形式から指定されたT型のObjectのインスタンスに変換します。
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            string responseContents = await response.Content.ReadAsStringAsync();
+
+            try
+            {
+                contents = JsonConvert.DeserializeObject<T>(responseContents);
+            }
+            catch (JsonException)
+            {
+                contents.ResponceContent = responseContents;
+
+
+            }
+            return contents;
         }
 
         public static async Task<T> ExecuteGetAsync<T>(string url)
